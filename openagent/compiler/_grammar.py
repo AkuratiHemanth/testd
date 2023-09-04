@@ -19,24 +19,18 @@ def SavedText(node):
 program = pp.Forward()
 program_chunk = pp.Forward()
 
-## Define the utility function to format text into structured chat templates
+
 def format_chat_template(text):
     user_role = "{{#user}}"
     assistant_role = "{{#assistant}}"
     gen_command = "{{gen 'write'}}"
     
-    # Ensure the template starts with a user role
+
     if not text.startswith(user_role):
         text = user_role + text
     
-    # Ensure the template ends with the assistant's gen command
     if not text.endswith(gen_command):
         text += assistant_role + gen_command
     
-   text = text.replace("{{gen ", "{{/user}} {{#assistant}}{{gen ")
+    text = text.replace("{{gen ", "{{/user}} {{#assistant}}{{gen ")
     return text
-
-# Example usage:
-input_text = "how are things going, tell me about Delhi"
-formatted_template = format_chat_template(input_text)
-print(formatted_template)
